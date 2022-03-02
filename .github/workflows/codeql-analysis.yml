@@ -41,8 +41,9 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Checking python version
-      run: |
-          python -version
+      run: python -version
+      shell: pwsh
+          
     
        
    # Install maven manually and find out .m2 directory. .m2 directory can be found unless you execute one maven goal
