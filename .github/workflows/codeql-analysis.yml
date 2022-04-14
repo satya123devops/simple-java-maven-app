@@ -39,37 +39,33 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    
-    - name: Checking python version
-      run: python -version
-      shell: pwsh
           
     
        
    # Install maven manually and find out .m2 directory. .m2 directory can be found unless you execute one maven goal
    # Directory location is /home/runner/.m2 
-    #- if: matrix.language == 'java' 
-     # name: install maven
-      #run: |
+    - if: matrix.language == 'java' 
+      name: install maven
+      run: |
        # ls -a
-        #sudo apt install maven -y
+        sudo apt install maven -y
         #mvn -version
         #mvn clean
         #sudo find / -type d -name ".m2"
 
     # Initializes the CodeQL tools for scanning.
-    #- name: Initialize CodeQL
-     # uses: github/codeql-action/init@v1
-      #with:
-       # languages: ${{ matrix.language }}
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
  
     #Here execute the maven compile goal
-    #- if: matrix.language == 'java' 
-     # name: Build Java
-      #run: |
+    - if: matrix.language == 'java' 
+      name: Build Java
+      run: |
        # mvn -version
-        #mvn compile
+        mvn compile
         
     # perform CodeQL Analysis 
-    #- name: Perform CodeQL Analysis
-     # uses: github/codeql-action/analyze@v1
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
